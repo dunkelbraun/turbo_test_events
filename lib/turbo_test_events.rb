@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require "turbo_test_events/version"
-
-module TurboTest
-  module Events
-  end
-end
+require_relative "turbo_test_events/version"
+require_relative "turbo_test_events/event"
+require_relative "turbo_test_events/event_registry"
