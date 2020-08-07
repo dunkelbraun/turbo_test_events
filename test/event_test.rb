@@ -13,6 +13,10 @@ describe "TurboTest::Event" do
         file.write payload.to_s
       end
     end
+
+    def update_frozen(payload)
+      raise StandardError if payload.frozen?
+    end
   end
 
   test "subscribing to an event" do
@@ -100,5 +104,13 @@ describe "TurboTest::Event" do
     assert_equal [1, 2, 3, 4].to_s, File.read("tmp/event_1.observer_1")
     assert_equal [1, 2, 3, 4].to_s, File.read("tmp/event_1.observer_2")
     assert_equal [1, 2, 3, 4].to_s, File.read("tmp/event_1.observer_3")
+  end
+
+  test "event payload is frozen" do
+    event = TurboTest::Event.new
+    event.subscribe(Observer.new(1), :update_frozen)
+    assert_raises StandardError do
+      event.publish([1, 2, 3, 4])
+    end
   end
 end

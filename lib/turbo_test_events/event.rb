@@ -8,7 +8,7 @@ module TurboTest
 
     def publish(*arg)
       changed
-      notify_observers(*arg)
+      notify_observers(*arg.map(&:freeze))
     end
 
     alias subscribe_without_locking add_observer
