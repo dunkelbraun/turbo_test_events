@@ -71,7 +71,7 @@ TurboTest::EventRegistry["event_1"].unsubscribe_all
 ```
 
 
-### Multithreading Notes
+## Multithreading Notes
   - You can publish events from different threads.
   - You can add and remove subscribers in different threads.
   - There are no guarantees about the thread that will execute the subscriber callback.
