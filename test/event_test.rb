@@ -3,7 +3,7 @@
 require "test_helper"
 
 describe "TurboTest::Event" do
-  class Observer
+  class SubscriberEvent
     def initialize(num)
       @num = num
     end
@@ -21,8 +21,8 @@ describe "TurboTest::Event" do
 
   test "subscribing to an event" do
     event = TurboTest::Event.new
-    observer_one = Observer.new(1)
-    observer_two = Observer.new(2)
+    observer_one = SubscriberEvent.new(1)
+    observer_two = SubscriberEvent.new(2)
     event.subscribe(observer_one)
     event.subscribe(observer_two)
 
@@ -35,14 +35,14 @@ describe "TurboTest::Event" do
   test "#add_observer is not defined" do
     event = TurboTest::Event.new
     assert_raises NoMethodError do
-      event.add_observer(Observer.new(1))
+      event.add_observer(SubscriberEvent.new(1))
     end
   end
 
   test "unsubscribing from an event" do
     event = TurboTest::Event.new
-    observer_one = Observer.new(1)
-    observer_two = Observer.new(2)
+    observer_one = SubscriberEvent.new(1)
+    observer_two = SubscriberEvent.new(2)
     event.subscribe(observer_one)
     event.subscribe(observer_two)
 
@@ -55,7 +55,7 @@ describe "TurboTest::Event" do
 
   test "#delete_observer is not defined" do
     event = TurboTest::Event.new
-    observer = Observer.new(1)
+    observer = SubscriberEvent.new(1)
     event.subscribe(observer)
 
     assert_raises NoMethodError do
@@ -65,8 +65,8 @@ describe "TurboTest::Event" do
 
   test "unsubscribing all observers from an event" do
     event = TurboTest::Event.new
-    observer_one = Observer.new(1)
-    observer_two = Observer.new(2)
+    observer_one = SubscriberEvent.new(1)
+    observer_two = SubscriberEvent.new(2)
     event.subscribe(observer_one)
     event.subscribe(observer_two)
 
@@ -86,9 +86,9 @@ describe "TurboTest::Event" do
 
   test "publish an event notifies the observers" do
     event = TurboTest::Event.new
-    event.subscribe(Observer.new(1))
-    event.subscribe(Observer.new(2))
-    event.subscribe(Observer.new(3))
+    event.subscribe(SubscriberEvent.new(1))
+    event.subscribe(SubscriberEvent.new(2))
+    event.subscribe(SubscriberEvent.new(3))
 
     event.publish("something")
     assert_equal "something", File.read("tmp/event_1.observer_1")
@@ -108,7 +108,7 @@ describe "TurboTest::Event" do
 
   test "event payload is frozen" do
     event = TurboTest::Event.new
-    event.subscribe(Observer.new(1), :update_frozen)
+    event.subscribe(SubscriberEvent.new(1), :update_frozen)
     assert_raises StandardError do
       event.publish([1, 2, 3, 4])
     end
