@@ -79,8 +79,8 @@ TurboTest::EventRegistry["event_1"].unsubscribe_all
   - You can publish events from different threads.
   - You can add and remove subscribers in different threads.
   - There are no guarantees about the thread that will execute the subscriber callback.
-  - You should synchronize any internal data of the subscriber.
-  - The event payload is frozen.
+  - You should synchronize any internal data of the subscriber when modifying it.
+  - You should synchronize any data of the event payload when modifying it.
 
 ## Development
 

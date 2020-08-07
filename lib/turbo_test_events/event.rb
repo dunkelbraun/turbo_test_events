@@ -13,7 +13,7 @@ module TurboTest
 
     def publish(*arg)
       changed
-      notify_observers(*arg.map(&:freeze))
+      notify_observers(*arg)
     end
 
     alias subscribe add_observer
