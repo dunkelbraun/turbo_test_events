@@ -1,6 +1,6 @@
 ![Tests](https://github.com/dunkelbraun/turbo_test_events/workflows/Tests/badge.svg?branch=main)
 [![Maintainability](https://api.codeclimate.com/v1/badges/cdac75678956e034e298/maintainability)](https://codeclimate.com/github/dunkelbraun/turbo_test_events/maintainability)
-[![Maintainability](https://api.codeclimate.com/v1/badges/cdac75678956e034e298/maintainability)](https://codeclimate.com/github/dunkelbraun/turbo_test_events/maintainability)
+[![Coverage Status](https://coveralls.io/repos/github/dunkelbraun/turbo_test_events/badge.svg?branch=main)](https://coveralls.io/github/dunkelbraun/turbo_test_events?branch=main)
 
 # TurboTestEvents
 
