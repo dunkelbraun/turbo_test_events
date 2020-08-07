@@ -1,6 +1,6 @@
 # TurboTestEvents
 
-TurboTestEvents is a Ruby minimal event framework based on Observable.
+TurboTestEvents is a minimal event framework for Ruby based on Observable.
 
 ## Installation
 
