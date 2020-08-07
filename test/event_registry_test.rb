@@ -28,4 +28,54 @@ describe "TurboTest::EventRegistry" do
 
     assert_equal events.first.object_id, event_registry["event_1"].object_id
   end
+
+  class SubscriberTouch
+    attr_reader :events
+
+    def initialize(name)
+      @name = name
+      @events = []
+    end
+
+    def update(payload)
+      Mutex.new.synchronize do
+        @events << payload
+      end
+    end
+  end
+
+  test "events in threads" do
+    event = event_registry.register("event_1")
+    threads = []
+
+    subscriber_thread_one = Thread.new do
+      subscriber = SubscriberTouch.new("subs_one")
+      event.subscribe(subscriber)
+    end
+    threads << subscriber_thread_one
+
+    subscriber_thread_two = Thread.new do
+      subscriber = SubscriberTouch.new("subs_two")
+      event.subscribe(subscriber)
+    end
+    threads << subscriber_thread_two
+
+    threads.each(&:join)
+
+    observer_peers = event.instance_variable_get(:@observer_peers)
+    assert_equal 2, observer_peers.size
+
+    threads = []
+    2.times do |n|
+      threads << Thread.new do
+        event.publish(n)
+      end
+    end
+
+    threads.each(&:join)
+
+    observer_peers.each do |observer_peer|
+      assert_equal [0,1], observer_peer.events.sort
+    end
+  end
 end
