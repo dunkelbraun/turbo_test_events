@@ -21,6 +21,10 @@ module TurboTest
       extend Forwardable
       def_delegators :instance, :register, :[]
 
+      # :nocov:
+      remove_method :instance if RUBY_VERSION < "2.7"
+      # :nocov:
+
       private
 
       def instance
