@@ -8,6 +8,8 @@ module TurboTest
   class EventRegistry
     include Singleton
 
+    @instance = nil
+
     def initialize
       @events = Concurrent::Map.new
     end
@@ -22,6 +24,10 @@ module TurboTest
       def_delegators :instance, :register, :[]
 
       private
+
+      # :nocov:
+      remove_method :instance if RUBY_VERSION < "2.7"
+      # :nocov:
 
       def instance
         @instance || Mutex.new.synchronize { @instance ||= new }
