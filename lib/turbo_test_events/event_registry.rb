@@ -15,7 +15,9 @@ module TurboTest
     end
 
     def register(event_name)
-      @events[event_name] ||= Event.new
+      raise ArgumentError if event_name.nil?
+
+      @events[event_name] ||= Event.new(event_name)
     end
     alias [] register
 

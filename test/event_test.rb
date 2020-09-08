@@ -19,6 +19,15 @@ describe "TurboTest::Event" do
     end
   end
 
+  test "event name is nil by default" do
+    assert_nil TurboTest::Event.new.name
+  end
+
+  test "creating an event with name" do
+    event = TurboTest::Event.new("hello")
+    assert_equal "hello", event.name
+  end
+
   test "subscribing to an event" do
     event = TurboTest::Event.new
     observer_one = SubscriberEvent.new(1)

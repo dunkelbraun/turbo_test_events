@@ -12,6 +12,13 @@ describe "TurboTest::EventRegistry" do
   test "register events" do
     event = event_registry.register("event_1")
     assert_instance_of TurboTest::Event, event
+    assert_equal "event_1", event.name
+  end
+
+  test "register event without name raises exception" do
+    assert_raises(ArgumentError) do
+      event_registry.register(nil)
+    end
   end
 
   test "accessing events" do

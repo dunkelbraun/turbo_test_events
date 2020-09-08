@@ -7,7 +7,10 @@ module TurboTest
   class Event
     include Observable
 
-    def initialize
+    attr_reader :name
+
+    def initialize(name = nil)
+      @name = name
       @observer_peers = Concurrent::Map.new
     end
 
